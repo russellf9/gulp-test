@@ -1,0 +1,21 @@
+{
+  "name": "gulp-test",
+  "version": "1.0.0",
+  "authors": [
+    "Russell Wenban <russell@factornine.co.uk>"
+  ],
+  "description": "A Gulp Test",
+  "license": "MIT",
+  "homepage": "www.factornine.co.uk",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.2",
+    "angular-ui-router": "~0.2.15"
+  }
+}
