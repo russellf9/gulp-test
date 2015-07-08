@@ -1,0 +1,19 @@
+@import "settings";
+
+html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+body {
+  padding: 20px;
+
+}
+
+$grey: #ccc;
+$red : #BB2211;
+
+.active, {
+  color: $red;
+}
