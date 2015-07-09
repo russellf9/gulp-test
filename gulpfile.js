@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 var paths = {
     scripts: 'app/**/*.js',
     styles: ['./app/**/*.css', './app/**/*.scss'],
-    index: '.app/index.html',
+    index: 'app/index.html',
     partials: ['app/**/*.html', '!app/index.html'],
     distDev: './dist.dev',
     distProd: './dist.prod',
@@ -69,7 +69,7 @@ pipes.builtVendorScriptsDev = function() {
 
 pipes.builtVendorScriptsProd = function() {
     return gulp.src(bowerFiles())
-        .pipe(pipes.orderVendorScripts())
+        .pipe(pipes.orderedVendorScripts())
         .pipe(plugins.concat('vendor.min.js'))
         .pipe(plugins.uglify())
         .pipe(gulp.dest(paths.distScriptsProd));
@@ -126,10 +126,10 @@ pipes.validatedIndex = function() {
 pipes.builtIndexDev = function() {
 
     var orderedVendorScripts = pipes.builtVendorScriptsDev()
-        .pipe(pipes.orderVendorScripts());
+        .pipe(pipes.orderedVendorScripts());
 
     var orderedAppScripts = pipes.builtAppScriptsDev()
-        .pipe(pipes.orderAppScripts());
+        .pipe(pipes.orderedAppScripts());
 
     var appStyles = pipes.builtStylesDev();
 
@@ -177,9 +177,6 @@ gulp.task('clean-dev', function() {
     return deferred.promise;
 });
 
-gulp.task('test', function() {
-    console.log('Gulp Test');
-});
 
 // removes all compiled production files
 gulp.task('clean-prod', function() {
@@ -214,6 +211,32 @@ gulp.task('build-app-scripts-prod', pipes.builtAppScriptsProd);
 
 // compiles app sass and moves to the dev environment
 gulp.task('build-styles-dev', pipes.builtStylesDev);
+
+// moves vendor scripts into the dev environment
+gulp.task('build-vendor-scripts-dev', pipes.builtVendorScriptsDev);
+
+// concatenates, uglifies, and moves vendor scripts into the prod environment
+gulp.task('build-vendor-scripts-prod', pipes.builtVendorScriptsProd);
+
+// validates and injects sources into index.html and moves it to the dev environment
+gulp.task('build-index-dev', pipes.builtIndexDev);
+
+// validates and injects sources into index.html, minifies and moves it to the dev environment
+gulp.task('build-index-prod', pipes.builtIndexProd);
+
+// builds a complete dev environment
+gulp.task('build-app-dev', pipes.builtAppDev);
+
+// builds a complete prod environment
+gulp.task('build-app-prod', pipes.builtAppProd);
+
+// cleans and builds a complete dev environment
+gulp.task('clean-build-app-dev', ['clean-dev'], pipes.builtAppDev);
+
+// cleans and builds a complete prod environment
+gulp.task('clean-build-app-prod', ['clean-prod'], pipes.builtAppProd);
+
+gulp.task('test-prod-css', pipes.builtAppScriptsProd)
 
 
 // default task
