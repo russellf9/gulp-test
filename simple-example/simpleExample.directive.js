@@ -11,6 +11,6 @@ function SimpleExample() {
 		scope: {
 			options: '='
 		},
-		templateUrl: 'components/simple-example/simple-example.html'
+		templateUrl: '/simple-example.html'
 	};
 }

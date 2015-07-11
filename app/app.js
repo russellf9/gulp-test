@@ -1,7 +1,10 @@
-angular.module('f9.gulp-test', [])
+var app = angular.module('f9.gulp-test', ['ui.router'
+                                ])
 
-    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
+    .config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
+
+            console.log('trying!');
 
             $urlRouterProvider.otherwise('/');
 
@@ -11,3 +14,11 @@ angular.module('f9.gulp-test', [])
                     templateUrl: 'components/home.html'
                 });
         }]);
+
+app.run(function($rootScope) {
+    $rootScope.$on("$stateChangeError", console.log.bind(console));
+});
+
+
+
+//f9.grid.simple-example
