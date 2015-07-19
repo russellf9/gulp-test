@@ -27,7 +27,7 @@ var pipes = {};
 
 
 pipes.orderedVendorScripts = function() {
-    return plugins.order(['jquery.js', 'angular.js']);
+    return plugins.order(['jquery.js', 'angular.js', 'angular-ui-router']);
 };
 
 pipes.orderedAppScripts = function() {
@@ -258,6 +258,49 @@ gulp.task('clean-build-app-prod', ['clean-prod'], pipes.builtAppProd);
 
 // working
 gulp.task('test-app-prod', pipes.builtAppScriptsProd);
+
+
+// clean, build, and watch live changes to the dev environment
+gulp.task('watch-dev', ['clean-build-app-dev', 'validate-devserver-scripts'], function() {
+
+    console.log('plugins.nodemon: ', plugins.nodemon)
+
+    // start nodemon to auto-reload the dev server
+    plugins.nodemon({ script: 'server.js', ext: 'js', watch: ['devServer/'], env: {NODE_ENV : 'development'} })
+        .on('change', ['validate-devserver-scripts'])
+        .on('restart', function () {
+            console.log('[nodemon] restarted dev server');
+        });
+
+    // start live-reload server
+    plugins.livereload.listen({ start: true });
+
+    // watch index
+    gulp.watch(paths.index, function() {
+        return pipes.builtIndexDev()
+            .pipe(plugins.livereload());
+    });
+
+    // watch app scripts
+    gulp.watch(paths.scripts, function() {
+        return pipes.builtAppScriptsDev()
+            .pipe(plugins.livereload());
+    });
+
+    // watch html partials
+    gulp.watch(paths.partials, function() {
+        return pipes.builtPartialsDev()
+            .pipe(plugins.livereload());
+    });
+
+    // watch styles
+    gulp.watch(paths.styles, function() {
+        return pipes.builtStylesDev()
+            .pipe(plugins.livereload());
+    });
+
+});
+
 
 
 // default task

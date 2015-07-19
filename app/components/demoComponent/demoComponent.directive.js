@@ -1,8 +1,8 @@
-angular.module('f9.gulp-test')
+angular.module('demo', [])
 
     .directive('demoComponent', [function() {
         return {
-            restrict: 'A',
+            restrict: 'AE',
             templateUrl: 'components/demoComponent/demoComponent.html',
             controllerAs: 'input',
             controller: controller
@@ -11,7 +11,7 @@ angular.module('f9.gulp-test')
         function controller() {
             var vm = this;
 
-            console.log('healthyGulpAngularApp')
+            console.log('demo!')
 
         }
     }]);

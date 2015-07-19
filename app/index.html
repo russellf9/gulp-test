@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html>
-<head lang="en" ng-app="f9.gulp-test" class="no-js">
+<html >
+<head lang="en"  class="no-js">
     <meta charset="UTF-8">
+    <base href="/">
+    <!-- This would work if running via the Gulp serve task... ->
+    <!--<base href="/www.factornine.co.uk/development/gulp-test/dist.dev/">-->
     <title>Gulp Test</title>
 
-    Where is my view?
+
 
     <!-- bower:css -->
     <!-- endinject -->
     <!-- inject:css -->
     <!-- endinject -->
 </head>
-<body>
+<body ng-app="f9.gulp-test">
+    <nav>
+        <a ui-sref="home">State 1</a>
+        <a ui-sref="state2">State 2</a>
+    </nav>
     <div ui-view></div>
-    <a ui-sref="state1">State 1</a>
-    <a ui-sref="state2">State 2</a>
+
 
     <!-- bower:js -->
     <!-- endinject -->
